@@ -533,6 +533,10 @@
   .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(255,255,255,0.28); }
   .contact-form input:focus, .contact-form textarea:focus { border-color: var(--teal); }
   .contact-form textarea { min-height: 120px; resize: vertical; }
+  .medaid-fields { display: flex; flex-direction: column; gap: 1rem; }
+  .medaid-fields[hidden] { display: none; }
+  .form-privacy { font-size: 12.5px; color: rgba(255,255,255,0.45); text-align: center; }
+  .form-privacy a { color: var(--teal); }
   .btn-teal {
     background: var(--teal); color: white; border: none; cursor: pointer;
     padding: 14px 30px; font-size: 15px; font-weight: 500; font-family: 'DM Sans', sans-serif;
@@ -892,9 +896,9 @@
       <div>
         <div class="reveal"><div class="section-eyebrow">Get in touch</div></div>
         <div class="contact-channels">
-        <a href="tel:+27871491627" class="ch-card reveal reveal-left rd1">
+        <a href="tel:+27871481627" class="ch-card reveal reveal-left rd1">
           <div class="ch-icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
-          <div><small>Phone</small><p>087 149 1627</p></div>
+          <div><small>Phone</small><p>087 148 1627</p></div>
         </a>
         <a href="https://wa.me/27663306552" target="_blank" rel="noopener" class="ch-card reveal reveal-left rd2">
           <div class="ch-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM4 16l2.83-4H4V6h16v10H4z"/></svg></div>
@@ -915,9 +919,16 @@
         <div class="contact-form">
           <input type="text" placeholder="Full name and surname">
           <input type="tel" placeholder="Contact number">
-          <input type="text" placeholder="ID number">
-          <input type="text" placeholder="Medical aid name">
-          <input type="text" placeholder="Member number">
+          <select id="enqPay" required onchange="togglePay()">
+            <option value="" disabled selected>How will you be paying? *</option>
+            <option value="private">Private / Cash</option>
+            <option value="medical-aid">Medical aid</option>
+          </select>
+          <div class="medaid-fields" id="medaidFields" hidden>
+            <input type="text" placeholder="ID number">
+            <input type="text" placeholder="Medical aid name">
+            <input type="text" placeholder="Member number">
+          </div>
           <select id="enqTown" required>
             <option value="" disabled selected>Which town are you in? *</option>
             <option>Welkom</option>
@@ -932,6 +943,7 @@
             <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
             Request a Consultation
           </button>
+          <p class="form-privacy">How we handle your information: <a href="privacy-notice.html">Privacy Notice</a></p>
         </div>
         <div class="emergency-note">⚠ Do not use this form for medical emergencies. Call 10177 for an ambulance, or 112 from any cellphone, or go to your nearest emergency department.</div>
       </div>
@@ -963,6 +975,7 @@
       <div class="footer-nav footer-legal">
         <strong>Legal</strong>
         <a href="terms-and-conditions.html">Terms &amp; Conditions</a>
+        <a href="privacy-notice.html">Privacy Notice</a>
         <a href="appointment-cancellation-policy.html">Appointment &amp; Cancellation Policy</a>
         <a href="paia-manual.html">PAIA Manual</a>
       </div>
@@ -1004,7 +1017,21 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   revealEls.forEach(el => observer.observe(el));
 
+  function togglePay() {
+    var med = document.getElementById('enqPay').value === 'medical-aid';
+    var box = document.getElementById('medaidFields');
+    box.hidden = !med;
+    if (!med) box.querySelectorAll('input').forEach(function (i) { i.value = ''; });
+    document.getElementById('enqPay').style.borderColor = '';
+  }
+
   function submitEnquiry() {
+    var pay = document.getElementById('enqPay');
+    if (!pay.value) {
+      pay.style.borderColor = '#e0574f';
+      pay.focus();
+      return;
+    }
     var town = document.getElementById('enqTown');
     if (!town.value) {
       town.style.borderColor = '#e0574f';
