@@ -491,6 +491,9 @@
   .ch-card:hover { border-color: rgba(40,184,178,0.35); background: rgba(40,184,178,0.07); }
   a.ch-card { text-decoration: none; }
   a.ch-card p { transition: color 0.2s; }
+  .ch-multi p a { color: inherit; text-decoration: none; transition: color 0.2s; white-space: nowrap; }
+  .ch-multi p a:hover { color: var(--teal); }
+  .ch-multi .sep { color: rgba(255,255,255,0.3); }
   a.ch-card:hover p { color: var(--teal); }
   .ch-icon {
     width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px;
@@ -535,6 +538,23 @@
   .contact-form textarea { min-height: 120px; resize: vertical; }
   .medaid-fields { display: flex; flex-direction: column; gap: 1rem; }
   .medaid-fields[hidden] { display: none; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .contact-form { position: relative; }
+  .contact-form[hidden] { display: none; }
+  .contact-form .invalid { border-color: #e0574f !important; }
+  .btn-teal[disabled] { opacity: 0.6; cursor: wait; }
+  .form-error { font-size: 13.5px; color: #ffb4ae; background: rgba(224,87,79,0.12); border: 1px solid rgba(224,87,79,0.35); border-radius: 8px; padding: 10px 14px; line-height: 1.55; }
+  .form-error a { color: #fff; }
+  .enq-done { background: rgba(255,255,255,0.05); border: 1px solid rgba(40,184,178,0.3); border-radius: 12px; padding: 2rem 1.6rem; text-align: center; }
+  .enq-done[hidden] { display: none; }
+  .enq-done-icon { width: 54px; height: 54px; border-radius: 50%; background: rgba(40,184,178,0.15); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+  .enq-done-icon svg { width: 26px; height: 26px; fill: var(--teal); }
+  .enq-done h3 { font-family: 'DM Serif Display', serif; font-weight: 400; color: #fff; font-size: 1.4rem; margin-bottom: 0.6rem; }
+  .enq-done p { color: rgba(255,255,255,0.65); font-size: 0.92rem; line-height: 1.7; margin-bottom: 1.3rem; }
+  .btn-wa { display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: #0b2a17; font-weight: 600; text-decoration: none; padding: 13px 26px; border-radius: 8px; font-size: 15px; }
+  .btn-wa:hover { background: #2fe174; }
+  .btn-wa svg { width: 17px; height: 17px; fill: #0b2a17; }
+  .enq-again { display: block; margin: 1.1rem auto 0; background: none; border: none; color: rgba(255,255,255,0.5); font-family: 'DM Sans', sans-serif; font-size: 13px; text-decoration: underline; cursor: pointer; }
   .form-privacy { font-size: 12.5px; color: rgba(255,255,255,0.45); text-align: center; }
   .form-privacy a { color: var(--teal); }
   .btn-teal {
@@ -896,13 +916,13 @@
       <div>
         <div class="reveal"><div class="section-eyebrow">Get in touch</div></div>
         <div class="contact-channels">
-        <a href="tel:+27871481627" class="ch-card reveal reveal-left rd1">
+        <div class="ch-card ch-multi reveal reveal-left rd1">
           <div class="ch-icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
-          <div><small>Phone</small><p>087 148 1627</p></div>
-        </a>
-        <a href="https://wa.me/27663306552" target="_blank" rel="noopener" class="ch-card reveal reveal-left rd2">
+          <div><small>Phone</small><p><a href="tel:+27871481627">087 148 1627</a><span class="sep"> / </span><a href="tel:+27663306552">066 330 6552</a></p></div>
+        </div>
+        <a href="https://wa.me/27699633552" target="_blank" rel="noopener" class="ch-card reveal reveal-left rd2">
           <div class="ch-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM4 16l2.83-4H4V6h16v10H4z"/></svg></div>
-          <div><small>WhatsApp</small><p>066 330 6552</p></div>
+          <div><small>WhatsApp</small><p>069 963 3552</p></div>
         </a>
         <a href="mailto:olwethu@olphysio.co.za" class="ch-card reveal reveal-left rd3">
           <div class="ch-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
@@ -916,20 +936,20 @@
           <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm1 14h-2v-2H9v-2h2V9h2v2h2v2h-2v2z"/></svg>
           <span><strong>Medical aid accepted.</strong> We can submit directly to most schemes — bring your main member details to your first session. Cash and EFT welcome.</span>
         </div>
-        <div class="contact-form">
-          <input type="text" placeholder="Full name and surname">
-          <input type="tel" placeholder="Contact number">
-          <select id="enqPay" required onchange="togglePay()">
+        <form class="contact-form" id="enquiryForm" action="enquiry.php" method="post" novalidate>
+          <input type="text" name="name" id="enqName" placeholder="Full name and surname *" autocomplete="name" maxlength="100" required>
+          <input type="tel" name="phone" id="enqPhone" placeholder="Contact number *" autocomplete="tel" maxlength="20" required>
+          <select name="payment" id="enqPay" required onchange="togglePay()">
             <option value="" disabled selected>How will you be paying? *</option>
             <option value="private">Private / Cash</option>
             <option value="medical-aid">Medical aid</option>
           </select>
           <div class="medaid-fields" id="medaidFields" hidden>
-            <input type="text" placeholder="ID number">
-            <input type="text" placeholder="Medical aid name">
-            <input type="text" placeholder="Member number">
+            <input type="text" name="id_number" placeholder="ID number" maxlength="20" autocomplete="off">
+            <input type="text" name="medical_aid" placeholder="Medical aid name" maxlength="80" autocomplete="off">
+            <input type="text" name="member_number" placeholder="Member number" maxlength="40" autocomplete="off">
           </div>
-          <select id="enqTown" required>
+          <select name="town" id="enqTown" required>
             <option value="" disabled selected>Which town are you in? *</option>
             <option>Welkom</option>
             <option>Bloemfontein</option>
@@ -938,12 +958,24 @@
             <option>Kroonstad</option>
             <option>Elsewhere — tell us below</option>
           </select>
-          <textarea placeholder="How can we help you?"></textarea>
-          <button class="btn-teal" onclick="submitEnquiry()">
+          <textarea name="message" id="enqMsg" placeholder="How can we help you?" maxlength="2000"></textarea>
+          <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <button type="submit" class="btn-teal" id="enqBtn">
             <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-            Request a Consultation
+            <span id="enqBtnText">Request a Consultation</span>
           </button>
+          <p class="form-error" id="enqError" role="alert" hidden></p>
           <p class="form-privacy">How we handle your information: <a href="privacy-notice.html">Privacy Notice</a></p>
+        </form>
+        <div class="enq-done" id="enqDone" hidden>
+          <div class="enq-done-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <h3>Thank you, your enquiry has been sent.</h3>
+          <p>Olwethu will be in touch shortly. For a faster reply you can also send a short copy of your enquiry on WhatsApp. It includes only your name, number, town and message, never your ID or medical aid details.</p>
+          <a class="btn-wa" id="enqWa" href="https://wa.me/27699633552" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM4 16l2.83-4H4V6h16v10H4z"/></svg>
+            Send on WhatsApp
+          </a>
+          <button type="button" class="enq-again" onclick="resetEnquiry()">Send another enquiry</button>
         </div>
         <div class="emergency-note">⚠ Do not use this form for medical emergencies. Call 10177 for an ambulance, or 112 from any cellphone, or go to your nearest emergency department.</div>
       </div>
@@ -1022,24 +1054,53 @@
     var box = document.getElementById('medaidFields');
     box.hidden = !med;
     if (!med) box.querySelectorAll('input').forEach(function (i) { i.value = ''; });
-    document.getElementById('enqPay').style.borderColor = '';
+    document.getElementById('enqPay').classList.remove('invalid');
   }
 
-  function submitEnquiry() {
-    var pay = document.getElementById('enqPay');
-    if (!pay.value) {
-      pay.style.borderColor = '#e0574f';
-      pay.focus();
-      return;
-    }
-    var town = document.getElementById('enqTown');
-    if (!town.value) {
-      town.style.borderColor = '#e0574f';
-      town.focus();
-      return;
-    }
-    town.style.borderColor = '';
-    alert('Thank you — your enquiry has been noted and we will be in touch shortly.\n\n(The form goes live once the domain is set up.)');
+  // Enquiry: emailed to OLPhysio by enquiry.php on xneelo, then the visitor is offered a
+  // short WhatsApp copy (name, number, town, message only; never ID or medical aid details).
+  var WA_NUMBER = '27699633552';
+  var enqForm = document.getElementById('enquiryForm');
+  function showError(msg) { var e = document.getElementById('enqError'); e.innerHTML = msg; e.hidden = false; }
+  function waText(f) {
+    var lines = ['Hi OLPhysio, I have just sent an enquiry through your website.',
+      'Name: ' + f.name.value.trim(),
+      'Contact number: ' + f.phone.value.trim(),
+      'Town: ' + f.town.value];
+    var msg = f.message.value.trim();
+    if (msg) lines.push('Message: ' + msg);
+    return lines.join('\n');
+  }
+  enqForm.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var f = enqForm, bad = null;
+    document.getElementById('enqError').hidden = true;
+    [f.name, f.phone, f.payment, f.town].forEach(function (el) {
+      var ok = el.value.trim() !== '';
+      if (el === f.phone) ok = /^[0-9+()\s-]{9,20}$/.test(el.value.trim());
+      el.classList.toggle('invalid', !ok);
+      if (!ok && !bad) bad = el;
+    });
+    if (bad) { bad.focus(); showError('Please complete the fields marked with *' + (bad === f.phone ? ' and check the contact number.' : '.')); return; }
+    var btn = document.getElementById('enqBtn'), txt = document.getElementById('enqBtnText');
+    btn.disabled = true; txt.textContent = 'Sending...';
+    fetch(f.getAttribute('action'), { method: 'POST', body: new FormData(f), headers: { 'Accept': 'application/json' } })
+      .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+      .then(function (res) {
+        if (!res.ok) throw new Error(res.error || 'send failed');
+        document.getElementById('enqWa').href = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(waText(f));
+        f.hidden = true; document.getElementById('enqDone').hidden = false;
+        document.getElementById('enqDone').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      })
+      .catch(function (err) {
+        var detail = err && err.message && err.message !== 'send failed' && err.message.indexOf('fetch') === -1 && err.message.indexOf('NetworkError') === -1 ? err.message + ' ' : '';
+        showError(detail + 'Your enquiry could not be sent right now. Please call <a href="tel:+27871481627">087 148 1627</a>, <a href="tel:+27663306552">066 330 6552</a> or WhatsApp <a href="https://wa.me/' + WA_NUMBER + '" target="_blank" rel="noopener">069 963 3552</a>.');
+      })
+      .finally(function () { btn.disabled = false; txt.textContent = 'Request a Consultation'; });
+  });
+  function resetEnquiry() {
+    enqForm.reset(); togglePay();
+    enqForm.hidden = false; document.getElementById('enqDone').hidden = true;
   }
 </script>
 </body>

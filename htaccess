@@ -1,0 +1,18 @@
+# OLPhysio, xneelo hosting
+# Serve the whole site over HTTPS (xneelo installs the free Let's Encrypt certificate automatically)
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Use olphysio.co.za without www
+RewriteCond %{HTTP_HOST} ^www\.olphysio\.co\.za$ [NC]
+RewriteRule ^ https://olphysio.co.za%{REQUEST_URI} [L,R=301]
+
+Options -Indexes
+DirectoryIndex index.html
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
